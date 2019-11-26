@@ -67,15 +67,25 @@ namespace GitReader
         private void GitCloneCMD(string download)
         {
             int percent_per_user = Convert.ToInt32(100/usernames.Count());
-            for(int i = 0; i < usernames.Count(); i++)
+            
+            for (int i = 0; i < usernames.Count(); i++)
             {
                 string username = usernames[i];
                 Console.WriteLine(username);
-
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+
+                if (!Directory.Exists(download + @"\" + username))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(download + @"\" + username);
+                }
+                else if (Directory.Exists(download + @"\" + username + @"\" + repositoryName))
+                {
+                    Directory.Delete(download + @"\" + username + @"\" + repositoryName);
+                    DirectoryInfo di = Directory.CreateDirectory(download + @"\" + username);
+                }
+
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                DirectoryInfo di = Directory.CreateDirectory(download + @"\" + username);
                 startInfo.WorkingDirectory = download + @"\" + username;
                 startInfo.FileName = "cmd.exe";
                 startInfo.Arguments = "/C git clone https://github.com/"+username+"/"+repositoryName;
@@ -138,7 +148,7 @@ namespace GitReader
                 worksheet.UsedRange.AutofitColumns();
 
                 //Save the workbook to disk in xlsx format
-                workbook.SaveAs(path + @"\Saved_Table.xlsx");
+                workbook.SaveAs(path + @"\Saved_Table_"+repositoryName+".xlsx");
             }
         }
     }
