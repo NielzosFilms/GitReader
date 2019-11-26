@@ -81,8 +81,10 @@ namespace GitReader
                 }
                 else if (Directory.Exists(download + @"\" + username + @"\" + repositoryName))
                 {
-                    Directory.Delete(download + @"\" + username + @"\" + repositoryName);
-                    DirectoryInfo di = Directory.CreateDirectory(download + @"\" + username);
+                    DirectoryInfo di1 = new DirectoryInfo(download + @"\" + username + @"\" + repositoryName);
+                    setAttributesNormal(di1);
+                    Directory.Delete(download + @"\" + username + @"\" + repositoryName, true);
+
                 }
 
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -123,7 +125,8 @@ namespace GitReader
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            string dataValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            MessageBox.Show(dataValue);
         }
 
         private void SaveExcelSheet(string path)
@@ -149,6 +152,16 @@ namespace GitReader
 
                 //Save the workbook to disk in xlsx format
                 workbook.SaveAs(path + @"\Saved_Table_"+repositoryName+".xlsx");
+            }
+        }
+
+        private void setAttributesNormal(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+                setAttributesNormal(subDir);
+            foreach (var file in dir.GetFiles())
+            {
+                file.Attributes = FileAttributes.Normal;
             }
         }
     }
