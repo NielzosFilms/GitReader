@@ -1,0 +1,14 @@
+text file met alle namen
+opdracht naam kunnen invoeren
+klikt op pull vraagt in welke map het moet opslaan
+opent tabel met allemaal informatie
+dat tabel wordt ook opgeslagen in die map
+
+
+
+
+commit 211d02009f013eb894e1cf198e91183704d681ac
+Author: NielzosFilms <nielzosfilms@gmail.com>
+Date:   Tue Oct 8 14:19:17 2019 +0200
+
+    first commit

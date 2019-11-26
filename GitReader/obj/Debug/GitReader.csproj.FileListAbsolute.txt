@@ -1,0 +1,16 @@
+D:\C# Projects\GitReader\GitReader\bin\Debug\GitReader.exe.config
+D:\C# Projects\GitReader\GitReader\bin\Debug\GitReader.exe
+D:\C# Projects\GitReader\GitReader\bin\Debug\GitReader.pdb
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.csprojAssemblyReference.cache
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.Form1.resources
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.Properties.Resources.resources
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.csproj.GenerateResource.cache
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.csproj.CoreCompileInputs.cache
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.exe
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.pdb
+D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.Compression.Base.dll
+D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.Licensing.dll
+D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.XlsIO.Base.dll
+D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.Compression.Base.xml
+D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.XlsIO.Base.xml
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.csproj.CopyComplete
