@@ -14,3 +14,5 @@ D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.XlsIO.Base.dll
 D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.Compression.Base.xml
 D:\C# Projects\GitReader\GitReader\bin\Debug\Syncfusion.XlsIO.Base.xml
 D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.csproj.CopyComplete
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.ProgressBarForm.resources
+D:\C# Projects\GitReader\GitReader\obj\Debug\GitReader.Details.resources

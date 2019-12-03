@@ -18,10 +18,15 @@ namespace GitReader
         List<String> usernames = new List<String>();
         List<User> users = new List<User>();
         public string repositoryName;
+        private ProgressBarForm pgbf;
+        private int progressValue = 0;
 
         public Form1()
         {
             InitializeComponent();
+            /*backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);*/
         }
 
         private void OpenFileBTN_Click(object sender, EventArgs e)
@@ -37,7 +42,9 @@ namespace GitReader
 
         private void PullDataBTN_Click(object sender, EventArgs e)
         {
-            if(textFilePath != null && textBox2.Text != null)
+            
+            //backgroundWorker1.RunWorkerAsync();
+            if (textFilePath != null && textBox2.Text != null)
             {
                 using (var fbd = new FolderBrowserDialog())
                 {
@@ -52,6 +59,8 @@ namespace GitReader
                     }
                 }
             }
+            //backgroundWorker1.CancelAsync();
+            //pgbf.Close();
         }
 
         private void GetNamesOfTextFile(string fileLocation)
@@ -86,6 +95,7 @@ namespace GitReader
                     Directory.Delete(download + @"\" + username + @"\" + repositoryName, true);
 
                 }
+                progressValue = 100;
 
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 startInfo.WorkingDirectory = download + @"\" + username;
@@ -95,7 +105,13 @@ namespace GitReader
                 process.Start();
                 process.WaitForExit();
                 RepositoryInformation repoInfo = RepositoryInformation.GetRepositoryInformationForPath(download + @"\" + username + @"\" + repositoryName);
-                User user = new User(username, repoInfo.Log.Count(), repoInfo.Log, repoInfo.HasUncommittedChanges, repoInfo.HasUnpushedCommits);
+                string tot_log = "";
+                for (int j = 0; j < repoInfo.Log.Count(); j++)
+                {
+                    string commit = repoInfo.Log.ElementAt(j);
+                    tot_log += commit + System.Environment.NewLine + System.Environment.NewLine;
+                }
+                User user = new User(username, repoInfo.Log.Count(), repoInfo.Log, repoInfo.HasUncommittedChanges, repoInfo.HasUnpushedCommits, tot_log);
                 for (int j = 0; j < repoInfo.Log.Count(); j++)
                 {
                     string commit = repoInfo.Log.ElementAt(j);
@@ -121,12 +137,6 @@ namespace GitReader
             int index = commit.IndexOf("+")+11;
             string message = commit.Substring(index);
             return message;
-        }
-
-        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string dataValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            MessageBox.Show(dataValue);
         }
 
         private void SaveExcelSheet(string path)
@@ -163,6 +173,35 @@ namespace GitReader
             {
                 file.Attributes = FileAttributes.Normal;
             }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            this.pgbf = new ProgressBarForm();
+            pgbf.Show();
+            pgbf.setProgress(progressValue);
+        }
+
+        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                string dataValue = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                foreach(User user in users)
+                {
+                    if(user.username == dataValue)
+                    {
+                        Details details = new Details(user.username, Convert.ToString(user.commitCount), Convert.ToString(user.hasUncommitedChanges), Convert.ToString(user.hasUnpushedCommits), Convert.ToString(user.commit_date_times.ElementAt(0)), Convert.ToString(user.commit_messages.ElementAt(0)), user.tot_log);
+                        details.Show();
+                    }
+                }
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine(e1);
+            }
+            
         }
     }
 }
